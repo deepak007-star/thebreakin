@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Briefcase, Mail, MapPin, Phone, Linkedin, Twitter, Instagram, Youtube } from "lucide-react";
+import { Mail, MapPin, Phone, Linkedin, Twitter, Instagram, Youtube } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -75,9 +75,6 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center">
-                <Briefcase className="w-5 h-5 text-white" />
-              </div>
               <span className="text-xl font-bold gradient-text">thebreakin</span>
             </Link>
             <p className="text-muted-foreground mb-6 max-w-xs">

@@ -14,7 +14,7 @@ export default function CTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative overflow-hidden rounded-3xl gradient-bg p-8 lg:p-16"
+          className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#7c3aed]/40 to-[#1e40af]/40 backdrop-blur-3xl border border-white/20 p-8 lg:p-16 shadow-2xl"
         >
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">

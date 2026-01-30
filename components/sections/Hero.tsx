@@ -94,22 +94,22 @@ export default function Hero() {
             onSubmit={handleSearch}
             className="max-w-3xl mx-auto mb-6"
           >
-            <div className="relative flex flex-col sm:flex-row items-center gap-3 p-3 rounded-2xl bg-card border border-border shadow-xl">
+            <div className="relative flex flex-col sm:flex-row items-center gap-3 p-2 rounded-full bg-background/60 backdrop-blur-xl border border-white/20 shadow-2xl shadow-primary/10 dark:bg-background/40 dark:border-white/10">
               <div className="relative flex-1 w-full">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
                   type="text"
                   placeholder="Search jobs by title, company, or location..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 h-14 text-lg border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                  className="pl-14 h-14 text-lg border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 rounded-full"
                 />
               </div>
               <Button
                 type="submit"
                 variant="gradient"
                 size="lg"
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto rounded-full px-8"
               >
                 Search Jobs
                 <ArrowRight className="w-4 h-4" />

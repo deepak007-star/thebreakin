@@ -183,7 +183,7 @@ export default function MentorsPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card className="h-full hover:shadow-lg transition-all duration-300 hover:border-primary/50">
+                <Card className="h-full hover:shadow-lg transition-all duration-300 hover:border-purple-500/30 bg-gradient-to-br from-purple-950/80 via-purple-900/50 to-purple-800/40 backdrop-blur-xl border-purple-400/20">
                   <CardContent className="p-6">
                     {/* Header */}
                     <div className="flex items-start gap-4 mb-4">
