@@ -10,11 +10,11 @@ import ThemeToggle from "@/components/ThemeToggle";
 
 const navLinks = [
   { name: "Services", href: "/services" },
-  { name: "Mentors", href: "/mentors" },
+  // { name: "Mentors", href: "/mentors" },
   { name: "Jobs", href: "/jobs" },
-  { name: "Dashboard", href: "/dashboard" },
+  // { name: "Dashboard", href: "/dashboard" },
   { name: "Pricing", href: "/pricing" },
-  { name: "Resources", href: "/resources" },
+  // { name: "Resources", href: "/resources" },
   { name: "About", href: "/about" },
 ];
 

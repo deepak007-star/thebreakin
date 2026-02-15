@@ -1,12 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Sparkles, Trophy, Globe, Search } from "lucide-react";
+import { ArrowRight, CheckCircle2, Sparkles, Trophy, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 const stats = [
   { value: "500+", label: "Placements", icon: Trophy },
@@ -18,29 +15,7 @@ const trustedCompanies = [
   "Google", "Amazon", "Meta", "Microsoft", "Apple", "Netflix"
 ];
 
-const popularSearches = [
-  "Software Engineer",
-  "Data Scientist",
-  "Product Manager",
-  "H1B Visa",
-];
-
 export default function Hero() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const router = useRouter();
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/jobs?q=${encodeURIComponent(searchQuery.trim())}`);
-    } else {
-      router.push("/jobs");
-    }
-  };
-
-  const handleQuickSearch = (term: string) => {
-    router.push(`/jobs?q=${encodeURIComponent(term)}`);
-  };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -71,7 +46,7 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight mb-6"
           >
-            Your US Career Journey{" "}
+            Your Corporate Career Journey{" "}
             <span className="gradient-text">Starts Here</span>
           </motion.h1>
 
@@ -80,77 +55,23 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-8"
+            className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-12"
           >
-            We don&apos;t just help you apply — we help you land your dream job in the United States.
+            We don&apos;t just help you apply — we help you land your dream job.
             From resume optimization to offer negotiation, we&apos;re with you every step.
           </motion.p>
 
-          {/* Prominent Search Bar */}
-          <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            onSubmit={handleSearch}
-            className="max-w-3xl mx-auto mb-6"
-          >
-            <div className="relative flex flex-col sm:flex-row items-center gap-3 p-2 rounded-full bg-background/60 backdrop-blur-xl border border-white/20 shadow-2xl shadow-primary/10 dark:bg-background/40 dark:border-white/10">
-              <div className="relative flex-1 w-full">
-                <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <Input
-                  type="text"
-                  placeholder="Search jobs by title, company, or location..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-14 h-14 text-lg border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 rounded-full"
-                />
-              </div>
-              <Button
-                type="submit"
-                variant="gradient"
-                size="lg"
-                className="w-full sm:w-auto rounded-full px-8"
-              >
-                Search Jobs
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </div>
-          </motion.form>
-
-          {/* Popular Searches */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.35 }}
-            className="flex flex-wrap items-center justify-center gap-2 mb-10"
-          >
-            <span className="text-sm text-muted-foreground">Popular:</span>
-            {popularSearches.map((term) => (
-              <button
-                key={term}
-                onClick={() => handleQuickSearch(term)}
-                className="px-3 py-1 text-sm rounded-full bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
-              >
-                {term}
-              </button>
-            ))}
-          </motion.div>
-
-          {/* Secondary CTAs */}
+          {/* Call to Action */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+            className="flex items-center justify-center mb-12"
           >
-            <Link href="/jobs">
-              <Button size="lg" variant="outline">
-                Browse All Jobs
-              </Button>
-            </Link>
             <Link href="/contact">
-              <Button size="lg" variant="secondary">
+              <Button size="lg" variant="gradient">
                 Book Free Consultation
+                <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
           </motion.div>

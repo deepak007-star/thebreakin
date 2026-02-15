@@ -51,7 +51,7 @@ export default function HowItWorks() {
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
             Your Path to a{" "}
-            <span className="gradient-text">US Career</span>
+            <span className="gradient-text">Corporate Career</span>
           </h2>
           <p className="text-lg text-muted-foreground">
             A proven 4-step process that has helped hundreds of international

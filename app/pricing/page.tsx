@@ -1,70 +1,67 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Check, X, ArrowRight, Sparkles, Shield, HelpCircle } from "lucide-react";
+import { Check, X, ArrowRight, Sparkles, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FAQ from "@/components/sections/FAQ";
 
 const plans = [
   {
-    name: "Starter",
-    description: "Perfect for getting started with your job search",
-    monthlyPrice: 299,
-    yearlyPrice: 249,
+    name: "Basic Plan",
+    description: "Designed for students targeting 3–5 focused roles with structured application momentum.",
+    price: 1299,
     features: [
-      { name: "Resume optimization (ATS-ready)", included: true },
-      { name: "10 job applications per week", included: true },
-      { name: "Basic interview tips guide", included: true },
-      { name: "Application tracking dashboard", included: true },
-      { name: "Email support", included: true },
-      { name: "LinkedIn optimization", included: false },
-      { name: "Mock interviews", included: false },
-      { name: "Dedicated recruiter", included: false },
-      { name: "Mentor sessions", included: false },
+      { name: "Minimum 50 customized job applications per day for up to 4 months", included: true },
+      { name: "Total ~6,000 applications", included: true },
+      { name: "1 US-based working mentor (industry-aligned)", included: true },
+      { name: "Resume & LinkedIn optimization for enhanced recruiter visibility", included: true },
+      { name: "50+ referrals accessible with one-click system", included: true },
+      { name: "Automated cold emailing and LinkedIn networking", included: false },
+      { name: "Internal job board access", included: false },
+      { name: "Immigration guidance", included: false },
     ],
+    idealFor: "Ideal for students who need structured execution and guided preparation without advanced networking automation.",
     cta: "Get Started",
     popular: false,
   },
   {
-    name: "Professional",
-    description: "Most popular choice for serious job seekers",
-    monthlyPrice: 599,
-    yearlyPrice: 499,
+    name: "Elite Plan",
+    description: "Designed for students targeting 5–8 roles with stronger networking leverage and referral depth.",
+    price: 2499,
     features: [
-      { name: "Resume optimization (ATS-ready)", included: true },
-      { name: "30 job applications per week", included: true },
-      { name: "LinkedIn profile makeover", included: true },
-      { name: "Application tracking dashboard", included: true },
-      { name: "2 mock interviews per month", included: true },
-      { name: "Dedicated recruiter", included: true },
-      { name: "Priority email & chat support", included: true },
-      { name: "Salary negotiation guidance", included: true },
-      { name: "Weekly mentor sessions", included: false },
+      { name: "Minimum 75 customized applications per day for up to 4 months", included: true },
+      { name: "Total ~9,000 applications", included: true },
+      { name: "3 US-based industry mentors", included: true },
+      { name: "Resume & LinkedIn optimization", included: true },
+      { name: "400+ referrals accessible", included: true },
+      { name: "Automated cold emailing and LinkedIn networking to corporate professionals", included: true },
+      { name: "Internal job board access", included: false },
+      { name: "Immigration guidance", included: false },
     ],
-    cta: "Start Free Trial",
+    idealFor: "This plan significantly increases interview probability through volume + referral + active outreach strategy.",
+    cta: "Start Elite Plan",
     popular: true,
   },
   {
-    name: "Premium",
-    description: "Maximum support for guaranteed results",
-    monthlyPrice: 999,
-    yearlyPrice: 849,
+    name: "Premium Plan",
+    description: "Designed for aggressive, multi-role targeting with full-stack placement and immigration alignment support.",
+    price: 4199,
     features: [
-      { name: "Resume optimization (ATS-ready)", included: true },
-      { name: "Unlimited job applications", included: true },
-      { name: "LinkedIn profile makeover", included: true },
-      { name: "Application tracking dashboard", included: true },
-      { name: "Unlimited mock interviews", included: true },
-      { name: "Senior dedicated recruiter", included: true },
-      { name: "24/7 priority support", included: true },
-      { name: "Salary negotiation support", included: true },
-      { name: "Weekly 1:1 mentor sessions", included: true },
+      { name: "Minimum 120 customized applications per day for 4 months", included: true },
+      { name: "Total ~15,000 applications", included: true },
+      { name: "Unlimited role targeting", included: true },
+      { name: "5 US-based industry mentors", included: true },
+      { name: "Resume & LinkedIn optimization", included: true },
+      { name: "700+ referrals accessible", included: true },
+      { name: "Automated LinkedIn outreach (50 unique professional outreach sequences)", included: true },
+      { name: "Internal job board access", included: true },
+      { name: "Lawyer and immigration guidance", included: true },
+      { name: "O-1 and EB1-A visa support strategy", included: true },
     ],
+    idealFor: "Best for students seeking comprehensive support with immigration alignment and maximum outreach.",
     cta: "Get Premium",
     popular: false,
     badge: "Best Value",
@@ -74,31 +71,17 @@ const plans = [
 const guarantees = [
   {
     icon: Shield,
-    title: "Money-Back Guarantee",
-    description: "If you don't get interview calls within 30 days, we'll refund your first month.",
+    title: "Results-Driven Approach",
+    description: "Our systematic application strategy is designed to maximize your interview opportunities through volume and targeted outreach.",
   },
   {
     icon: Sparkles,
-    title: "Interview Guarantee",
-    description: "Premium members get guaranteed interviews or we extend your service for free.",
+    title: "Industry Mentorship",
+    description: "Get guidance from US-based mentors who understand your target industry and can help you prepare for success.",
   },
 ];
 
-const comparisonFeatures = [
-  "Resume Optimization",
-  "Weekly Applications",
-  "LinkedIn Makeover",
-  "Mock Interviews",
-  "Dedicated Recruiter",
-  "Mentor Sessions",
-  "Visa Guidance",
-  "Salary Negotiation",
-  "Priority Support",
-];
-
 export default function PricingPage() {
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
-
   return (
     <div className="pt-20">
       {/* Hero Section */}
@@ -118,22 +101,9 @@ export default function PricingPage() {
               <span className="gradient-text">Future</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
-              Choose the plan that fits your needs. All plans include our core services
-              with a money-back guarantee.
+              Choose the plan that fits your needs. All plans include 4 months of comprehensive support
+              with a results-driven approach.
             </p>
-
-            {/* Billing Toggle */}
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <Tabs value={billingCycle} onValueChange={(v) => setBillingCycle(v as "monthly" | "yearly")}>
-                <TabsList className="grid w-64 grid-cols-2">
-                  <TabsTrigger value="monthly">Monthly</TabsTrigger>
-                  <TabsTrigger value="yearly">
-                    Yearly
-                    <Badge className="ml-2 bg-green-500 text-white text-xs">Save 17%</Badge>
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
-            </div>
           </motion.div>
         </div>
       </section>
@@ -167,15 +137,10 @@ export default function PricingPage() {
                     <CardDescription className="mt-2">{plan.description}</CardDescription>
                     <div className="mt-6">
                       <span className="text-5xl font-bold">
-                        ${billingCycle === "monthly" ? plan.monthlyPrice : plan.yearlyPrice}
+                        ${plan.price.toLocaleString()}
                       </span>
-                      <span className="text-muted-foreground">/month</span>
+                      <span className="text-muted-foreground text-sm block mt-2">4-month program</span>
                     </div>
-                    {billingCycle === "yearly" && (
-                      <p className="text-sm text-green-600 mt-2">
-                        Save ${(plan.monthlyPrice - plan.yearlyPrice) * 12}/year
-                      </p>
-                    )}
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <Link href="/contact">
@@ -192,16 +157,23 @@ export default function PricingPage() {
                       {plan.features.map((feature) => (
                         <li key={feature.name} className="flex items-start gap-3">
                           {feature.included ? (
-                            <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                            <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                           ) : (
-                            <X className="w-5 h-5 text-muted-foreground/30 flex-shrink-0" />
+                            <X className="w-5 h-5 text-muted-foreground/30 flex-shrink-0 mt-0.5" />
                           )}
-                          <span className={feature.included ? "" : "text-muted-foreground/50"}>
+                          <span className={`text-sm ${feature.included ? "" : "text-muted-foreground/50"}`}>
                             {feature.name}
                           </span>
                         </li>
                       ))}
                     </ul>
+                    {plan.idealFor && (
+                      <div className="pt-4 border-t">
+                        <p className="text-xs text-muted-foreground italic">
+                          {plan.idealFor}
+                        </p>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </motion.div>
@@ -252,58 +224,82 @@ export default function PricingPage() {
             <p className="text-muted-foreground">See what&apos;s included in each plan</p>
           </motion.div>
 
-          <div className="max-w-4xl mx-auto overflow-x-auto">
+          <div className="max-w-5xl mx-auto overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b">
                   <th className="text-left py-4 px-4 font-medium">Feature</th>
-                  <th className="text-center py-4 px-4 font-medium">Starter</th>
-                  <th className="text-center py-4 px-4 font-medium text-primary">Professional</th>
+                  <th className="text-center py-4 px-4 font-medium">Basic</th>
+                  <th className="text-center py-4 px-4 font-medium text-primary">Elite</th>
                   <th className="text-center py-4 px-4 font-medium">Premium</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b">
-                  <td className="py-4 px-4">Resume Optimization</td>
+                  <td className="py-4 px-4">Daily Applications</td>
+                  <td className="text-center py-4 px-4">50/day</td>
+                  <td className="text-center py-4 px-4 bg-primary/5">75/day</td>
+                  <td className="text-center py-4 px-4">120/day</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-4 px-4">Total Applications (4 months)</td>
+                  <td className="text-center py-4 px-4">~6,000</td>
+                  <td className="text-center py-4 px-4 bg-primary/5">~9,000</td>
+                  <td className="text-center py-4 px-4">~15,000</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-4 px-4">US-based Industry Mentors</td>
+                  <td className="text-center py-4 px-4">1</td>
+                  <td className="text-center py-4 px-4 bg-primary/5">3</td>
+                  <td className="text-center py-4 px-4">5</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-4 px-4">Resume & LinkedIn Optimization</td>
                   <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
                   <td className="text-center py-4 px-4 bg-primary/5"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
                   <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-4 px-4">Weekly Applications</td>
-                  <td className="text-center py-4 px-4">10</td>
-                  <td className="text-center py-4 px-4 bg-primary/5">30</td>
-                  <td className="text-center py-4 px-4">Unlimited</td>
+                  <td className="py-4 px-4">Referrals Accessible</td>
+                  <td className="text-center py-4 px-4">50+</td>
+                  <td className="text-center py-4 px-4 bg-primary/5">400+</td>
+                  <td className="text-center py-4 px-4">700+</td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-4 px-4">LinkedIn Makeover</td>
+                  <td className="py-4 px-4">Automated Cold Emailing & LinkedIn Networking</td>
                   <td className="text-center py-4 px-4"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
                   <td className="text-center py-4 px-4 bg-primary/5"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
                   <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-4 px-4">Mock Interviews</td>
-                  <td className="text-center py-4 px-4"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
-                  <td className="text-center py-4 px-4 bg-primary/5">2/month</td>
-                  <td className="text-center py-4 px-4">Unlimited</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-4 px-4">Dedicated Recruiter</td>
-                  <td className="text-center py-4 px-4"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
-                  <td className="text-center py-4 px-4 bg-primary/5"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
-                  <td className="text-center py-4 px-4">Senior</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-4 px-4">Mentor Sessions</td>
+                  <td className="py-4 px-4">Automated LinkedIn Outreach Sequences</td>
                   <td className="text-center py-4 px-4"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
                   <td className="text-center py-4 px-4 bg-primary/5"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
-                  <td className="text-center py-4 px-4">Weekly</td>
+                  <td className="text-center py-4 px-4">50 sequences</td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-4 px-4">Priority Support</td>
-                  <td className="text-center py-4 px-4">Email</td>
-                  <td className="text-center py-4 px-4 bg-primary/5">Email & Chat</td>
-                  <td className="text-center py-4 px-4">24/7</td>
+                  <td className="py-4 px-4">Internal Job Board Access</td>
+                  <td className="text-center py-4 px-4"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
+                  <td className="text-center py-4 px-4 bg-primary/5"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
+                  <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-4 px-4">Lawyer & Immigration Guidance</td>
+                  <td className="text-center py-4 px-4"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
+                  <td className="text-center py-4 px-4 bg-primary/5"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
+                  <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-4 px-4">O-1 and EB1-A Visa Support</td>
+                  <td className="text-center py-4 px-4"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
+                  <td className="text-center py-4 px-4 bg-primary/5"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
+                  <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-4 px-4">Role Targeting</td>
+                  <td className="text-center py-4 px-4">3–5 roles</td>
+                  <td className="text-center py-4 px-4 bg-primary/5">5–8 roles</td>
+                  <td className="text-center py-4 px-4">Unlimited</td>
                 </tr>
               </tbody>
             </table>

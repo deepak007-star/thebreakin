@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "thebreakin | Your US Career Journey Starts Here",
+  title: "thebreakin | Your Corporate Career Journey Starts Here",
   description: "Land your dream job in the United States. We help international job seekers with resume optimization, job applications, interview prep, visa guidance, and mentorship.",
   keywords: ["US jobs", "H1B visa", "OPT jobs", "STEM OPT", "job search", "career coaching", "resume optimization", "interview preparation"],
   authors: [{ name: "thebreakin" }],
