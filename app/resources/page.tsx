@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
@@ -12,6 +13,7 @@ import {
   CheckCircle2,
   Clock,
   Star,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -132,6 +134,24 @@ const blogPosts = [
 const categories = ["All", "Resume", "Interview", "Visa", "Career", "Negotiation"];
 
 export default function ResourcesPage() {
+  const [email, setEmail] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setIsSubscribing(true);
+
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    setIsSubscribing(false);
+    setIsSubscribed(true);
+    setEmail("");
+  };
+
   return (
     <div className="pt-20">
       {/* Hero Section */}
@@ -328,25 +348,49 @@ export default function ResourcesPage() {
             transition={{ duration: 0.5 }}
             className="max-w-2xl mx-auto text-center"
           >
-            <Lightbulb className="w-12 h-12 text-primary mx-auto mb-4" />
-            <h2 className="text-3xl font-bold mb-4">Get Weekly Career Tips</h2>
-            <p className="text-muted-foreground mb-8">
-              Join 10,000+ professionals receiving our weekly newsletter with job search tips,
-              visa updates, and exclusive resources.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <Button variant="gradient">
-                Subscribe
-              </Button>
-            </div>
-            <p className="text-sm text-muted-foreground mt-4">
-              No spam. Unsubscribe anytime.
-            </p>
+            {isSubscribed ? (
+              <>
+                <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle2 className="w-8 h-8 text-green-600 dark:text-green-400" />
+                </div>
+                <h2 className="text-3xl font-bold mb-4">You&apos;re Subscribed!</h2>
+                <p className="text-muted-foreground">
+                  Thanks for joining 10,000+ professionals. Check your inbox for a welcome email with exclusive resources.
+                </p>
+              </>
+            ) : (
+              <>
+                <Lightbulb className="w-12 h-12 text-primary mx-auto mb-4" />
+                <h2 className="text-3xl font-bold mb-4">Get Weekly Career Tips</h2>
+                <p className="text-muted-foreground mb-8">
+                  Join 10,000+ professionals receiving our weekly newsletter with job search tips,
+                  visa updates, and exclusive resources.
+                </p>
+                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="flex-1 px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <Button variant="gradient" type="submit" disabled={isSubscribing}>
+                    {isSubscribing ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Subscribing...
+                      </>
+                    ) : (
+                      "Subscribe"
+                    )}
+                  </Button>
+                </form>
+                <p className="text-sm text-muted-foreground mt-4">
+                  No spam. Unsubscribe anytime.
+                </p>
+              </>
+            )}
           </motion.div>
         </div>
       </section>

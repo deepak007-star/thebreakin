@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Clock, Send, Calendar, MessageSquare, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send, Calendar, MessageSquare, CheckCircle2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,7 +13,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email Us",
-    description: "hello@thebreakin.org",
+    description: "services@breakin.com",
     action: "Send an email",
   },
   {
@@ -55,6 +55,8 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isScheduling, setIsScheduling] = useState(false);
+  const [isScheduled, setIsScheduled] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,6 +72,16 @@ export default function ContactPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleScheduleConsultation = async () => {
+    setIsScheduling(true);
+
+    // Simulate API call for scheduling
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    setIsScheduling(false);
+    setIsScheduled(true);
   };
 
   return (
@@ -183,7 +195,7 @@ export default function ContactPage() {
                         type="email"
                         value={formState.email}
                         onChange={handleChange}
-                        placeholder="john@example.com"
+                        placeholder="you@example.com"
                         required
                       />
                     </div>
@@ -264,21 +276,53 @@ export default function ContactPage() {
               {/* Book Consultation Card */}
               <Card className="gradient-bg text-white">
                 <CardContent className="p-8">
-                  <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center mb-6">
-                    <Calendar className="w-7 h-7" />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-4">Book a Free Consultation</h3>
-                  <p className="text-white/80 mb-6">
-                    Schedule a 30-minute call with our career experts. We&apos;ll assess your profile
-                    and create a personalized action plan.
-                  </p>
-                  <Button
-                    size="lg"
-                    className="w-full bg-white text-primary hover:bg-white/90"
-                  >
-                    Schedule Now
-                    <Calendar className="ml-2 w-4 h-4" />
-                  </Button>
+                  {isScheduled ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="text-center py-4"
+                    >
+                      <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-4">
+                        <CheckCircle2 className="w-8 h-8" />
+                      </div>
+                      <h3 className="text-2xl font-bold mb-2">Consultation Scheduled!</h3>
+                      <p className="text-white/80 mb-4">
+                        Thank you! Our team will contact you within 24 hours to confirm your consultation time.
+                      </p>
+                      <p className="text-white/60 text-sm">
+                        You&apos;ll receive confirmation at your email address.
+                      </p>
+                    </motion.div>
+                  ) : (
+                    <>
+                      <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center mb-6">
+                        <Calendar className="w-7 h-7" />
+                      </div>
+                      <h3 className="text-2xl font-bold mb-4">Book a Free Consultation</h3>
+                      <p className="text-white/80 mb-6">
+                        Schedule a 30-minute call with our career experts. We&apos;ll assess your profile
+                        and create a personalized action plan.
+                      </p>
+                      <Button
+                        size="lg"
+                        className="w-full bg-white text-primary hover:bg-white/90"
+                        onClick={handleScheduleConsultation}
+                        disabled={isScheduling}
+                      >
+                        {isScheduling ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Scheduling...
+                          </>
+                        ) : (
+                          <>
+                            Schedule Now
+                            <Calendar className="ml-2 w-4 h-4" />
+                          </>
+                        )}
+                      </Button>
+                    </>
+                  )}
                 </CardContent>
               </Card>
 

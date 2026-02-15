@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { Mail, MapPin, Phone, Linkedin, Twitter, Instagram, Youtube } from "lucide-react";
+import { Mail, MapPin, Phone, Linkedin, Twitter, Instagram, Youtube, CheckCircle2, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -43,6 +44,24 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setIsSubscribing(true);
+
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    setIsSubscribing(false);
+    setIsSubscribed(true);
+    setEmail("");
+  };
+
   return (
     <footer className="bg-muted/50 border-t border-border">
       {/* Newsletter Section */}
@@ -55,16 +74,33 @@ export default function Footer() {
                 Subscribe to get job search tips, visa updates, and exclusive resources.
               </p>
             </div>
-            <div className="flex w-full max-w-md gap-2">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1"
-              />
-              <Button variant="gradient">
-                Subscribe
-              </Button>
-            </div>
+            {isSubscribed ? (
+              <div className="flex items-center gap-3 text-green-600 dark:text-green-400">
+                <CheckCircle2 className="w-5 h-5" />
+                <span className="font-medium">Thanks for subscribing! Check your inbox.</span>
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex w-full max-w-md gap-2">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-1"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <Button variant="gradient" type="submit" disabled={isSubscribing}>
+                  {isSubscribing ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Subscribing...
+                    </>
+                  ) : (
+                    "Subscribe"
+                  )}
+                </Button>
+              </form>
+            )}
           </div>
         </div>
       </div>
@@ -83,7 +119,7 @@ export default function Footer() {
             <div className="space-y-3 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                <span>hello@thebreakin.org</span>
+                <span>services@breakin.com</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
