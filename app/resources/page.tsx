@@ -1,22 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   FileText,
   Download,
-  BookOpen,
-  Video,
-  Lightbulb,
   ArrowRight,
   CheckCircle2,
   Clock,
   Star,
-  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import CTA from "@/components/sections/CTA";
 
@@ -57,10 +52,10 @@ const templates = [
 
 const guides = [
   {
-    title: "The Ultimate H1B Visa Guide",
-    description: "Everything you need to know about the H1B visa process, lottery, and sponsorship",
+    title: "Corporate Career Advancement Guide",
+    description: "Everything you need to know about climbing the corporate ladder and landing promotions",
     readTime: "15 min read",
-    category: "Visa",
+    category: "Career",
     featured: true,
   },
   {
@@ -85,15 +80,15 @@ const guides = [
     featured: true,
   },
   {
-    title: "OPT to Green Card Roadmap",
-    description: "Your complete guide to transitioning from OPT to permanent residency",
+    title: "Career Transition Roadmap",
+    description: "Your complete guide to successfully transitioning to a new industry or role",
     readTime: "18 min read",
-    category: "Visa",
+    category: "Career",
     featured: false,
   },
   {
     title: "Remote Job Search Strategy",
-    description: "How to find and land remote positions at US companies",
+    description: "How to find and land remote positions at top companies",
     readTime: "8 min read",
     category: "Job Search",
     featured: false,
@@ -123,35 +118,17 @@ const blogPosts = [
     category: "Industry Insights",
   },
   {
-    title: "The Truth About H1B Visa Sponsorship",
-    excerpt: "Debunking myths and sharing real data about which companies actually sponsor visas.",
+    title: "Top Companies That Invest in Employee Growth",
+    excerpt: "Discover which companies offer the best career development and advancement opportunities.",
     date: "Jan 10, 2024",
     readTime: "10 min",
-    category: "Visa Insights",
+    category: "Career Insights",
   },
 ];
 
-const categories = ["All", "Resume", "Interview", "Visa", "Career", "Negotiation"];
+const categories = ["All", "Resume", "Interview", "Career", "Negotiation", "Job Search"];
 
 export default function ResourcesPage() {
-  const [email, setEmail] = useState("");
-  const [isSubscribing, setIsSubscribing] = useState(false);
-  const [isSubscribed, setIsSubscribed] = useState(false);
-
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-
-    setIsSubscribing(true);
-
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    setIsSubscribing(false);
-    setIsSubscribed(true);
-    setEmail("");
-  };
-
   return (
     <div className="pt-20">
       {/* Hero Section */}
@@ -172,7 +149,7 @@ export default function ResourcesPage() {
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
               Download templates, read guides, and learn from success stories.
-              Everything you need to land your dream job in the US.
+              Everything you need to land your dream corporate job.
             </p>
           </motion.div>
         </div>
@@ -335,63 +312,6 @@ export default function ResourcesPage() {
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
-        </div>
-      </section>
-
-      {/* Newsletter Section */}
-      <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="max-w-2xl mx-auto text-center"
-          >
-            {isSubscribed ? (
-              <>
-                <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle2 className="w-8 h-8 text-green-600 dark:text-green-400" />
-                </div>
-                <h2 className="text-3xl font-bold mb-4">You&apos;re Subscribed!</h2>
-                <p className="text-muted-foreground">
-                  Thanks for joining 10,000+ professionals. Check your inbox for a welcome email with exclusive resources.
-                </p>
-              </>
-            ) : (
-              <>
-                <Lightbulb className="w-12 h-12 text-primary mx-auto mb-4" />
-                <h2 className="text-3xl font-bold mb-4">Get Weekly Career Tips</h2>
-                <p className="text-muted-foreground mb-8">
-                  Join 10,000+ professionals receiving our weekly newsletter with job search tips,
-                  visa updates, and exclusive resources.
-                </p>
-                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="flex-1 px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                  <Button variant="gradient" type="submit" disabled={isSubscribing}>
-                    {isSubscribing ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Subscribing...
-                      </>
-                    ) : (
-                      "Subscribe"
-                    )}
-                  </Button>
-                </form>
-                <p className="text-sm text-muted-foreground mt-4">
-                  No spam. Unsubscribe anytime.
-                </p>
-              </>
-            )}
-          </motion.div>
         </div>
       </section>
 

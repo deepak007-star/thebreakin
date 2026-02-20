@@ -22,9 +22,8 @@ const mentors = [
     experience: "8+ years",
     rating: 4.9,
     reviews: 47,
-    location: "San Francisco, CA",
-    visaExperience: true,
-    bio: "Former international student who navigated the H1B process. Passionate about helping others break into tech.",
+    location: "Remote",
+    bio: "Passionate about helping others break into tech. Expert at system design interviews.",
   },
   {
     id: 2,
@@ -36,8 +35,7 @@ const mentors = [
     experience: "10+ years",
     rating: 4.8,
     reviews: 62,
-    location: "New York, NY",
-    visaExperience: true,
+    location: "Remote",
     bio: "Led product teams across 3 FAANG companies. Specializes in career pivots into PM roles.",
   },
   {
@@ -50,9 +48,8 @@ const mentors = [
     experience: "7+ years",
     rating: 5.0,
     reviews: 38,
-    location: "Seattle, WA",
-    visaExperience: true,
-    bio: "Went from OPT to Green Card. Helps aspiring data scientists land roles at top tech companies.",
+    location: "Remote",
+    bio: "Helps aspiring data scientists land roles at top tech companies.",
   },
   {
     id: 4,
@@ -64,8 +61,7 @@ const mentors = [
     experience: "12+ years",
     rating: 4.9,
     reviews: 55,
-    location: "Seattle, WA",
-    visaExperience: false,
+    location: "Remote",
     bio: "Built and led engineering teams of 50+. Expert at navigating corporate ladder in big tech.",
   },
   {
@@ -78,9 +74,8 @@ const mentors = [
     experience: "9+ years",
     rating: 4.7,
     reviews: 41,
-    location: "Cupertino, CA",
-    visaExperience: true,
-    bio: "From international design student to Apple director. Passionate about design education.",
+    location: "Remote",
+    bio: "From design student to Apple director. Passionate about design education.",
   },
   {
     id: 6,
@@ -92,8 +87,7 @@ const mentors = [
     experience: "11+ years",
     rating: 4.9,
     reviews: 33,
-    location: "Los Angeles, CA",
-    visaExperience: true,
+    location: "Remote",
     bio: "Architect of Netflix's core streaming infrastructure. Expert at cracking staff-level interviews.",
   },
 ];
@@ -135,7 +129,7 @@ export default function MentorsPage() {
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
               Get 1:1 guidance from professionals at top companies who&apos;ve been in your shoes.
-              Our mentors have helped hundreds of international professionals land their dream jobs.
+              Our mentors have helped hundreds of professionals land their dream jobs.
             </p>
           </motion.div>
         </div>
@@ -215,9 +209,6 @@ export default function MentorsPage() {
                     <div className="flex items-center gap-1 text-sm text-muted-foreground mb-4">
                       <MapPin className="w-4 h-4" />
                       <span>{mentor.location}</span>
-                      {mentor.visaExperience && (
-                        <Badge variant="secondary" className="ml-2 text-xs">Visa Expert</Badge>
-                      )}
                     </div>
 
                     {/* Bio */}

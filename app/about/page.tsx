@@ -28,7 +28,7 @@ const values = [
   {
     icon: Users,
     title: "Community First",
-    description: "We've built a supportive community of professionals who help each other succeed in their US career journeys.",
+    description: "We've built a supportive community of professionals who help each other succeed in their corporate career journeys.",
   },
   {
     icon: Zap,
@@ -48,7 +48,7 @@ const team = [
     name: "Maria Santos",
     role: "Head of Career Services",
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop",
-    bio: "15+ years helping professionals navigate career transitions and visa processes.",
+    bio: "15+ years helping professionals navigate career transitions.",
   },
   {
     name: "David Park",
@@ -65,7 +65,7 @@ const team = [
 ];
 
 const milestones = [
-  { year: "2020", title: "Founded", description: "Started with a mission to help international talent break into the US market." },
+  { year: "2020", title: "Founded", description: "Started with a mission to help talented professionals land corporate jobs." },
   { year: "2021", title: "100 Placements", description: "Reached our first major milestone with placements at top tech companies." },
   { year: "2022", title: "AI Integration", description: "Launched AI-powered resume optimization and job matching tools." },
   { year: "2023", title: "Mentor Network", description: "Built a network of 50+ mentors from FAANG and Fortune 500 companies." },
@@ -92,8 +92,8 @@ export default function AboutPage() {
               <span className="gradient-text">Break In</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
-              We started thebreakin because we believe talented professionals shouldn&apos;t be
-              held back by borders. Our mission is to make the US job market accessible to everyone.
+              We started thebreakin because we believe talented professionals deserve the best opportunities.
+              Our mission is to help you land your dream corporate job.
             </p>
           </motion.div>
         </div>
@@ -136,20 +136,19 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  As former recruiters and international professionals ourselves, we experienced
-                  firsthand the challenges of breaking into the US job market. The visa complexities,
-                  the cultural differences in job searching, and the sheer competition can be overwhelming.
+                  As former recruiters and career professionals ourselves, we experienced
+                  firsthand the challenges of breaking into the corporate job market. The competition,
+                  the interview processes, and navigating career transitions can be overwhelming.
                 </p>
                 <p>
                   We saw countless talented individuals struggle—not because they lacked skills, but
-                  because they didn&apos;t have the right guidance and support. Resume formats that work
-                  in other countries often fail in the US. Interview styles differ. And navigating the
-                  visa sponsorship landscape is a maze.
+                  because they didn&apos;t have the right guidance and support. Resume formats matter.
+                  Interview styles differ across companies. And understanding what top employers want
+                  is crucial.
                 </p>
                 <p>
                   That&apos;s why we built thebreakin. We combine human expertise with AI-powered tools
-                  to give international professionals the best possible chance at landing their dream
-                  jobs in the United States.
+                  to give professionals the best possible chance at landing their dream corporate jobs.
                 </p>
               </div>
               <Link href="/contact">
@@ -275,7 +274,7 @@ export default function AboutPage() {
           >
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">Our Journey</h2>
             <p className="text-muted-foreground">
-              Key milestones in our mission to help global talent break into the US market.
+              Key milestones in our mission to help professionals land their dream jobs.
             </p>
           </motion.div>
           <div className="max-w-3xl mx-auto">

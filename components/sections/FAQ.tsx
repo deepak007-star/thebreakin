@@ -18,8 +18,8 @@ const faqs = [
     answer: "While we have strong expertise in tech roles, we help professionals across various industries including finance, healthcare, consulting, and more. Our services are tailored to your specific field and career goals.",
   },
   {
-    question: "I'm on OPT/STEM OPT. Can you help me find H1B sponsors?",
-    answer: "Absolutely! We specialize in helping international professionals on OPT, STEM OPT, H1B, and other visa types. We specifically target companies known for visa sponsorship and guide you through the entire immigration process.",
+    question: "Do you help with career transitions?",
+    answer: "Absolutely! We specialize in helping professionals make successful career transitions. Whether you're switching industries or moving up the corporate ladder, we provide tailored guidance and support throughout the process.",
   },
   {
     question: "How many jobs do you apply to per week?",
@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     question: "What makes thebreakin different from other services?",
-    answer: "Unlike automated services, we provide personalized support with real recruiters who understand the US job market. Our 95% success rate speaks for itself. We combine AI-powered tools with human expertise to maximize your chances.",
+    answer: "Unlike automated services, we provide personalized support with real recruiters who understand the corporate job market. Our 95% success rate speaks for itself. We combine AI-powered tools with human expertise to maximize your chances.",
   },
   {
     question: "Do you offer refunds if I don't get a job?",
@@ -56,16 +56,20 @@ export default function FAQ() {
             transition={{ duration: 0.5 }}
             className="text-center mb-16"
           >
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+            <motion.span
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
+            >
               FAQ
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+            </motion.span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
               Frequently Asked{" "}
               <span className="gradient-text">Questions</span>
             </h2>
             <p className="text-lg text-muted-foreground">
-              Everything you need to know about our services and how we can help
-              you land your dream job in the US.
+              Everything you need to know about our services.
             </p>
           </motion.div>
 

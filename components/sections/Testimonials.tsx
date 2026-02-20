@@ -23,9 +23,9 @@ const testimonials = [
     role: "Data Scientist",
     company: "Amazon",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop",
-    content: "As an international student on OPT, I was worried about finding H1B sponsors. thebreakin's team not only found me opportunities but also coached me through the entire visa process. Now I'm living my dream at Amazon!",
+    content: "I was struggling to get noticed by top companies. thebreakin's team not only found me great opportunities but also coached me through the entire interview process. Now I'm living my dream at Amazon!",
     rating: 5,
-    stats: "OPT → H1B Sponsorship in 4 months",
+    stats: "Job Search → Dream Role in 4 months",
   },
   {
     id: 3,
@@ -71,16 +71,20 @@ export default function Testimonials() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+          <motion.span
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
+          >
             Success Stories
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+          </motion.span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
             Real Results from{" "}
             <span className="gradient-text">Real People</span>
           </h2>
           <p className="text-lg text-muted-foreground">
-            Join hundreds of professionals who have successfully landed their
-            dream jobs in the US with our help.
+            Professionals who landed their dream jobs with our strategic approach.
           </p>
         </motion.div>
 

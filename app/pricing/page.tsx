@@ -10,58 +10,56 @@ import FAQ from "@/components/sections/FAQ";
 
 const plans = [
   {
-    name: "Basic Plan",
-    description: "Designed for students targeting 3–5 focused roles with structured application momentum.",
+    name: "🟢 Basic Plan",
+    description: "For focused execution with guided preparation. Perfect for students targeting 3–5 roles.",
     price: 1299,
     features: [
-      { name: "Minimum 50 customized job applications per day for up to 4 months", included: true },
-      { name: "Total ~6,000 applications", included: true },
-      { name: "1 US-based working mentor (industry-aligned)", included: true },
-      { name: "Resume & LinkedIn optimization for enhanced recruiter visibility", included: true },
-      { name: "50+ referrals accessible with one-click system", included: true },
-      { name: "Automated cold emailing and LinkedIn networking", included: false },
+      { name: "~6,000 customized job applications (50/day for up to 4 months)", included: true },
+      { name: "1 US-based industry mentor", included: true },
+      { name: "Resume & LinkedIn optimization", included: true },
+      { name: "Access to 50+ referrals", included: true },
+      { name: "Structured interview preparation", included: true },
+      { name: "Automated cold email + LinkedIn outreach", included: false },
       { name: "Internal job board access", included: false },
       { name: "Immigration guidance", included: false },
     ],
-    idealFor: "Ideal for students who need structured execution and guided preparation without advanced networking automation.",
+    idealFor: "Students who need consistent execution, accountability, and interview readiness.",
     cta: "Get Started",
     popular: false,
   },
   {
-    name: "Elite Plan",
-    description: "Designed for students targeting 5–8 roles with stronger networking leverage and referral depth.",
+    name: "🔵 Elite Plan",
+    description: "For higher interview probability through volume + networking. Targeting 5–8 roles.",
     price: 2499,
     features: [
-      { name: "Minimum 75 customized applications per day for up to 4 months", included: true },
-      { name: "Total ~9,000 applications", included: true },
+      { name: "~9,000 customized job applications (75/day for up to 4 months)", included: true },
       { name: "3 US-based industry mentors", included: true },
       { name: "Resume & LinkedIn optimization", included: true },
-      { name: "400+ referrals accessible", included: true },
-      { name: "Automated cold emailing and LinkedIn networking to corporate professionals", included: true },
+      { name: "Access to 400+ referrals", included: true },
+      { name: "Automated cold email + LinkedIn outreach to professionals", included: true },
       { name: "Internal job board access", included: false },
       { name: "Immigration guidance", included: false },
     ],
-    idealFor: "This plan significantly increases interview probability through volume + referral + active outreach strategy.",
+    idealFor: "Candidates who want serious networking leverage and increased interview conversions.",
     cta: "Start Elite Plan",
     popular: true,
   },
   {
-    name: "Premium Plan",
-    description: "Designed for aggressive, multi-role targeting with full-stack placement and immigration alignment support.",
+    name: "🔴 Premium Plan",
+    description: "Full-Scale Placement + Immigration Alignment. Built for aggressive multi-role targeting.",
     price: 4199,
     features: [
-      { name: "Minimum 120 customized applications per day for 4 months", included: true },
-      { name: "Total ~15,000 applications", included: true },
+      { name: "~15,000 customized job applications (120/day for 4 months)", included: true },
       { name: "Unlimited role targeting", included: true },
       { name: "5 US-based industry mentors", included: true },
       { name: "Resume & LinkedIn optimization", included: true },
-      { name: "700+ referrals accessible", included: true },
-      { name: "Automated LinkedIn outreach (50 unique professional outreach sequences)", included: true },
+      { name: "Access to 700+ referrals", included: true },
+      { name: "50 automated LinkedIn outreach sequences", included: true },
       { name: "Internal job board access", included: true },
-      { name: "Lawyer and immigration guidance", included: true },
-      { name: "O-1 and EB1-A visa support strategy", included: true },
+      { name: "Lawyer & immigration guidance", included: true },
+      { name: "O-1 & EB1-A visa strategy support", included: true },
     ],
-    idealFor: "Best for students seeking comprehensive support with immigration alignment and maximum outreach.",
+    idealFor: "Ambitious professionals who want maximum visibility, speed, and strategic immigration positioning.",
     cta: "Get Premium",
     popular: false,
     badge: "Best Value",
@@ -71,13 +69,13 @@ const plans = [
 const guarantees = [
   {
     icon: Shield,
-    title: "Results-Driven Approach",
-    description: "Our systematic application strategy is designed to maximize your interview opportunities through volume and targeted outreach.",
+    title: "No Salary Commission",
+    description: "We don't take a cut of your salary. Pay once, get the job, and keep 100% of your earnings.",
   },
   {
     icon: Sparkles,
-    title: "Industry Mentorship",
-    description: "Get guidance from US-based mentors who understand your target industry and can help you prepare for success.",
+    title: "No Hidden Contracts",
+    description: "Transparent pricing with clear deliverables. What you see is what you get. Just execution.",
   },
 ];
 
@@ -94,15 +92,15 @@ export default function PricingPage() {
             className="max-w-3xl mx-auto text-center"
           >
             <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-              Pricing
+              💼 Career Acceleration Plans
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mt-4 mb-6">
-              Invest in Your{" "}
-              <span className="gradient-text">Future</span>
+              Launch Your Career{" "}
+              <span className="gradient-text">With Strategy</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
-              Choose the plan that fits your needs. All plans include 4 months of comprehensive support
-              with a results-driven approach.
+              No salary commission. No hidden contracts. Just execution.
+              Choose the plan that matches your ambition.
             </p>
           </motion.div>
         </div>
@@ -229,9 +227,9 @@ export default function PricingPage() {
               <thead>
                 <tr className="border-b">
                   <th className="text-left py-4 px-4 font-medium">Feature</th>
-                  <th className="text-center py-4 px-4 font-medium">Basic</th>
-                  <th className="text-center py-4 px-4 font-medium text-primary">Elite</th>
-                  <th className="text-center py-4 px-4 font-medium">Premium</th>
+                  <th className="text-center py-4 px-4 font-medium">🟢 Basic</th>
+                  <th className="text-center py-4 px-4 font-medium text-primary">🔵 Elite</th>
+                  <th className="text-center py-4 px-4 font-medium">🔴 Premium</th>
                 </tr>
               </thead>
               <tbody>
@@ -260,19 +258,25 @@ export default function PricingPage() {
                   <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-4 px-4">Referrals Accessible</td>
+                  <td className="py-4 px-4">Referrals Access</td>
                   <td className="text-center py-4 px-4">50+</td>
                   <td className="text-center py-4 px-4 bg-primary/5">400+</td>
                   <td className="text-center py-4 px-4">700+</td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-4 px-4">Automated Cold Emailing & LinkedIn Networking</td>
+                  <td className="py-4 px-4">Interview Preparation</td>
+                  <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
+                  <td className="text-center py-4 px-4 bg-primary/5"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
+                  <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-4 px-4">Automated Cold Email + LinkedIn Outreach</td>
                   <td className="text-center py-4 px-4"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
                   <td className="text-center py-4 px-4 bg-primary/5"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
                   <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-4 px-4">Automated LinkedIn Outreach Sequences</td>
+                  <td className="py-4 px-4">LinkedIn Outreach Sequences</td>
                   <td className="text-center py-4 px-4"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
                   <td className="text-center py-4 px-4 bg-primary/5"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
                   <td className="text-center py-4 px-4">50 sequences</td>
@@ -290,7 +294,7 @@ export default function PricingPage() {
                   <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-4 px-4">O-1 and EB1-A Visa Support</td>
+                  <td className="py-4 px-4">O-1 & EB1-A Visa Strategy</td>
                   <td className="text-center py-4 px-4"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
                   <td className="text-center py-4 px-4 bg-primary/5"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
                   <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>

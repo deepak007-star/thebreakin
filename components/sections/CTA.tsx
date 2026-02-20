@@ -2,83 +2,136 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+const benefits = [
+  "No salary commission",
+  "No hidden contracts",
+  "Just execution",
+];
 
 export default function CTA() {
   return (
     <section className="py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#7c3aed]/40 to-[#1e40af]/40 backdrop-blur-3xl border border-white/20 p-8 lg:p-16 shadow-2xl"
+          transition={{ duration: 0.6 }}
+          className="relative overflow-hidden rounded-3xl"
         >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,#ffffff1a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1a_1px,transparent_1px)] bg-[size:40px_40px]" />
+          {/* Gradient Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary via-violet-600 to-blue-600" />
+
+          {/* Animated Orbs */}
+          <div className="absolute inset-0 overflow-hidden">
+            <motion.div
+              animate={{
+                x: [0, 30, 0],
+                y: [0, -20, 0],
+              }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-10 right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"
+            />
+            <motion.div
+              animate={{
+                x: [0, -20, 0],
+                y: [0, 30, 0],
+              }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute bottom-10 left-10 w-80 h-80 bg-white/10 rounded-full blur-3xl"
+            />
+            <motion.div
+              animate={{
+                scale: [1, 1.1, 1],
+              }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"
+            />
           </div>
 
-          {/* Floating Elements */}
-          <div className="absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full blur-2xl animate-float" />
-          <div className="absolute bottom-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-float" style={{ animationDelay: "1.5s" }} />
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:3rem_3rem]" />
 
-          <div className="relative z-10 max-w-3xl mx-auto text-center">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white text-sm font-medium mb-8">
-              <Sparkles className="w-4 h-4" />
-              <span>Limited spots available this month</span>
-            </div>
+          {/* Content */}
+          <div className="relative z-10 p-8 lg:p-16">
+            <div className="max-w-3xl mx-auto text-center">
+              {/* Heading */}
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6"
+              >
+                Ready to Launch Your
+                <br />
+                <span className="text-white/90">Corporate Career?</span>
+              </motion.h2>
 
-            {/* Heading */}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-              Ready to Break Into the US Market?
-            </h2>
+              {/* Description */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="text-lg text-white/80 mb-8 max-w-2xl mx-auto"
+              >
+                Strategy over luck. Volume over hope. Results over promises.
+              </motion.p>
 
-            {/* Description */}
-            <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
-              Join 500+ professionals who have successfully landed their dream jobs
-              with our help. Your US career journey starts with a single step.
-            </p>
+              {/* CTAs */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10"
+              >
+                <Link href="/contact">
+                  <Button
+                    size="lg"
+                    className="h-14 px-8 bg-white text-primary hover:bg-white/90 shadow-xl hover:shadow-2xl group"
+                  >
+                    Book Free Consultation
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+                <Link href="/pricing">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="h-14 px-8 border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 backdrop-blur-sm"
+                  >
+                    View Plans
+                  </Button>
+                </Link>
+              </motion.div>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/contact">
-                <Button
-                  size="lg"
-                  className="bg-white text-primary hover:bg-white/90 shadow-xl hover:shadow-2xl"
-                >
-                  Start Your Journey
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </Link>
-              <Link href="/pricing">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 hover:border-white/50"
-                >
-                  View Pricing
-                </Button>
-              </Link>
-            </div>
-
-            {/* Trust Indicators */}
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-12 text-white/60 text-sm">
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-green-400 rounded-full" />
-                Free consultation
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-green-400 rounded-full" />
-                No commitment required
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-green-400 rounded-full" />
-                Money-back guarantee
-              </span>
+              {/* Trust Indicators */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="flex flex-wrap items-center justify-center gap-6"
+              >
+                {benefits.map((benefit, index) => (
+                  <motion.span
+                    key={benefit}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                    className="flex items-center gap-2 text-white/80 text-sm"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-emerald-300" />
+                    {benefit}
+                  </motion.span>
+                ))}
+              </motion.div>
             </div>
           </div>
         </motion.div>

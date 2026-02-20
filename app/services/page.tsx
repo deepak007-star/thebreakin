@@ -6,7 +6,6 @@ import {
   FileText,
   Send,
   MessageSquare,
-  Globe,
   Users,
   Briefcase,
   CheckCircle2,
@@ -40,7 +39,7 @@ const services = [
   {
     id: "applications",
     title: "Job Application Service",
-    description: "We apply to verified, visa-sponsoring roles daily on your behalf.",
+    description: "We apply to verified roles at top companies daily on your behalf.",
     icon: Send,
     color: "from-blue-500 to-cyan-500",
     features: [
@@ -48,7 +47,7 @@ const services = [
       "Real-time application tracking",
       "Recruiter follow-up emails",
       "Company research and matching",
-      "Priority visa-sponsoring employers",
+      "Priority top employers",
       "Weekly progress reports",
     ],
     stats: { value: "70+", label: "Weekly Applications" },
@@ -68,22 +67,6 @@ const services = [
       "Company-specific preparation",
     ],
     stats: { value: "85%", label: "Offer Conversion" },
-  },
-  {
-    id: "visa",
-    title: "Visa Guidance",
-    description: "Navigate the complex US immigration system with expert support.",
-    icon: Globe,
-    color: "from-orange-500 to-amber-500",
-    features: [
-      "H1B lottery strategy",
-      "OPT/STEM OPT optimization",
-      "Green card pathways",
-      "Visa transfer guidance",
-      "Attorney referral network",
-      "Compliance tracking",
-    ],
-    stats: { value: "200+", label: "Visa Transitions" },
   },
   {
     id: "mentorship",
@@ -123,7 +106,7 @@ const benefits = [
   {
     icon: Target,
     title: "Targeted Approach",
-    description: "We focus on quality over quantity, targeting roles that match your profile and visa needs.",
+    description: "We focus on quality over quantity, targeting roles that match your profile and career goals.",
   },
   {
     icon: Zap,

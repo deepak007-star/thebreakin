@@ -1,11 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { Mail, MapPin, Phone, Linkedin, Twitter, Instagram, Youtube, CheckCircle2, Loader2 } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { Mail, Linkedin, Twitter, Instagram, Youtube } from "lucide-react";
 
 const footerLinks = {
   services: [
@@ -13,7 +9,6 @@ const footerLinks = {
     { name: "Job Applications", href: "/services#applications" },
     { name: "Interview Prep", href: "/services#interview" },
     { name: "Mentorship", href: "/services#mentorship" },
-    { name: "Visa Guidance", href: "/services#visa" },
   ],
   company: [
     { name: "About Us", href: "/about" },
@@ -23,7 +18,6 @@ const footerLinks = {
     { name: "Contact", href: "/contact" },
   ],
   resources: [
-    { name: "Job Board", href: "/jobs" },
     { name: "Resume Templates", href: "/resources#templates" },
     { name: "Interview Guide", href: "/resources#interview" },
     { name: "Blog", href: "/resources#blog" },
@@ -44,67 +38,8 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [isSubscribing, setIsSubscribing] = useState(false);
-  const [isSubscribed, setIsSubscribed] = useState(false);
-
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-
-    setIsSubscribing(true);
-
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    setIsSubscribing(false);
-    setIsSubscribed(true);
-    setEmail("");
-  };
-
   return (
     <footer className="bg-muted/50 border-t border-border">
-      {/* Newsletter Section */}
-      <div className="border-b border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-            <div className="text-center lg:text-left">
-              <h3 className="text-2xl font-bold mb-2">Ready to Break Into the US Market?</h3>
-              <p className="text-muted-foreground">
-                Subscribe to get job search tips, visa updates, and exclusive resources.
-              </p>
-            </div>
-            {isSubscribed ? (
-              <div className="flex items-center gap-3 text-green-600 dark:text-green-400">
-                <CheckCircle2 className="w-5 h-5" />
-                <span className="font-medium">Thanks for subscribing! Check your inbox.</span>
-              </div>
-            ) : (
-              <form onSubmit={handleSubscribe} className="flex w-full max-w-md gap-2">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <Button variant="gradient" type="submit" disabled={isSubscribing}>
-                  {isSubscribing ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Subscribing...
-                    </>
-                  ) : (
-                    "Subscribe"
-                  )}
-                </Button>
-              </form>
-            )}
-          </div>
-        </div>
-      </div>
-
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
@@ -114,20 +49,12 @@ export default function Footer() {
               <span className="text-xl font-bold gradient-text">thebreakin</span>
             </Link>
             <p className="text-muted-foreground mb-6 max-w-xs">
-              Your trusted partner for landing your dream job in the United States. From resume to offer, we&apos;re with you every step.
+              Your trusted partner for landing your dream corporate job. From resume to offer, we&apos;re with you every step.
             </p>
             <div className="space-y-3 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                <span>services@breakin.com</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4" />
-                <span>+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4" />
-                <span>San Francisco, CA</span>
+                <span>service@thebreakin.org</span>
               </div>
             </div>
           </div>
