@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variant, Variants } from "framer-motion";
 import { UserCircle, Target, Zap, Users, Award } from "lucide-react";
 
 const steps = [
@@ -41,7 +41,7 @@ const steps = [
   },
 ];
 
-const containerVariants = {
+const containerVariants :Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -51,14 +51,14 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants :Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
       duration: 0.5,
-      ease: "easeOut",
+      ease: [0.42, 0, 0.58, 1],
     },
   },
 };
