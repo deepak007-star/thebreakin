@@ -2,14 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const benefits = [
-  "No salary commission",
-  "No hidden contracts",
-  "Just execution",
-];
 
 export default function CTA() {
   return (
@@ -108,29 +102,6 @@ export default function CTA() {
                     View Plans
                   </Button>
                 </Link>
-              </motion.div>
-
-              {/* Trust Indicators */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="flex flex-wrap items-center justify-center gap-6"
-              >
-                {benefits.map((benefit, index) => (
-                  <motion.span
-                    key={benefit}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-                    className="flex items-center gap-2 text-white/80 text-sm"
-                  >
-                    <CheckCircle2 className="w-4 h-4 text-emerald-300" />
-                    {benefit}
-                  </motion.span>
-                ))}
               </motion.div>
             </div>
           </div>

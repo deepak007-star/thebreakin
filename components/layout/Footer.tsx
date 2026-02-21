@@ -17,17 +17,6 @@ const footerLinks = {
     { name: "Pricing", href: "/pricing" },
     { name: "Contact", href: "/contact" },
   ],
-  resources: [
-    { name: "Resume Templates", href: "/resources#templates" },
-    { name: "Interview Guide", href: "/resources#interview" },
-    { name: "Blog", href: "/resources#blog" },
-    { name: "FAQ", href: "/contact#faq" },
-  ],
-  legal: [
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
-    { name: "Cookie Policy", href: "/cookies" },
-  ],
 };
 
 const socialLinks = [
@@ -42,14 +31,14 @@ export default function Footer() {
     <footer className="bg-muted/50 border-t border-border">
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand Column */}
-          <div className="col-span-2 md:col-span-3 lg:col-span-2">
+          <div className="sm:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <span className="text-xl font-bold gradient-text">thebreakin</span>
             </Link>
-            <p className="text-muted-foreground mb-6 max-w-xs">
-              Your trusted partner for landing your dream corporate job. From resume to offer, we&apos;re with you every step.
+            <p className="text-muted-foreground mb-6 max-w-sm">
+              Think of us as your career partner until you land the job you deserve.
             </p>
             <div className="space-y-3 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
@@ -57,6 +46,21 @@ export default function Footer() {
                 <span>service@thebreakin.org</span>
               </div>
             </div>
+            {/* Social Links */}
+            {/* <div className="flex items-center gap-3 mt-6">
+              {socialLinks.map((social) => (
+                <Link
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors"
+                >
+                  <social.icon className="w-4 h-4" />
+                  <span className="sr-only">{social.name}</span>
+                </Link>
+              ))}
+            </div> */}
           </div>
 
           {/* Services Links */}
@@ -92,65 +96,15 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-
-          {/* Resources Links */}
-          <div>
-            <h4 className="font-semibold mb-4">Resources</h4>
-            <ul className="space-y-3">
-              {footerLinks.resources.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal Links */}
-          <div>
-            <h4 className="font-semibold mb-4">Legal</h4>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </div>
 
       {/* Bottom Bar */}
       <div className="border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} thebreakin. All rights reserved.
-            </p>
-            <div className="flex items-center gap-4">
-              {socialLinks.map((social) => (
-                <Link
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors"
-                >
-                  <social.icon className="w-5 h-5" />
-                  <span className="sr-only">{social.name}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
+          <p className="text-sm text-muted-foreground text-center">
+            © {new Date().getFullYear()} thebreakin. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

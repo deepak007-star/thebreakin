@@ -8,8 +8,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import CTA from "@/components/sections/CTA";
 
 const stats = [
-  { value: "500+", label: "Successful Placements" },
-  { value: "95%", label: "Success Rate" },
   { value: "50+", label: "Partner Companies" },
   { value: "30+", label: "Countries Served" },
 ];
@@ -102,7 +100,7 @@ export default function AboutPage() {
       {/* Stats Section */}
       <section className="py-16 border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="flex flex-wrap justify-center gap-16 md:gap-24">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -225,7 +223,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-24">
+      {/* <section className="py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -260,10 +258,10 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Timeline Section */}
-      <section className="py-24 bg-muted/30">
+      {/* <section className="py-24 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -303,7 +301,7 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <CTA />

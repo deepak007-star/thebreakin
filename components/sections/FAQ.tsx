@@ -45,7 +45,7 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <section className="py-24">
+    <section className="py-18">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           {/* Section Header */}
@@ -68,9 +68,9 @@ export default function FAQ() {
               Frequently Asked{" "}
               <span className="gradient-text">Questions</span>
             </h2>
-            <p className="text-lg text-muted-foreground">
+            {/* <p className="text-lg text-muted-foreground">
               Everything you need to know about our services.
-            </p>
+            </p> */}
           </motion.div>
 
           {/* FAQ Accordion */}

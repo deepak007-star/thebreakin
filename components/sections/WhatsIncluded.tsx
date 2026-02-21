@@ -10,57 +10,54 @@ const problems = [
     icon: FileX,
     title: "Sending 100s of applications",
     subtitle: "with zero response?",
-    description: "Your resume gets lost in ATS systems. No one sees your actual skills.",
+    description: "Your resume isn't reaching recruiters. We fix that.",
   },
   {
     icon: Frown,
     title: "Getting rejected",
     subtitle: "despite being qualified?",
-    description: "Recruiters don't see your true potential. Your profile needs professional optimization.",
+    description: "Your profile isn't positioned right. We optimize it.",
   },
   {
     icon: AlertCircle,
     title: "Struggling to stand out",
     subtitle: "in a competitive market?",
-    description: "Without the right connections, your applications get buried in the pile.",
+    description: "The right strategy makes you visible. We provide it.",
   },
   {
     icon: Clock,
     title: "Job search taking",
     subtitle: "months with no progress?",
-    description: "Without a system, it's a numbers game you're losing. Time is running out.",
+    description: "Without a system, results slow down. We speed them up.",
   },
 ];
 
 const solutions = [
   {
     icon: Check,
-    title: "50-120 Applications Daily",
+    title: "50-120 Applications Daily —",
     subtitle: "We do it FOR you",
-    description: "Our team sends targeted applications on your behalf. You focus on preparing, not applying.",
-    highlight: "6,000-15,000 applications in 4 months",
+    description: "We apply on your behalf. You focus on interviews.",
+  },
+  {
+    icon: Check,
+    title: "Guaranteed Results",
+    subtitle: "in 8 weeks or less",
+    description: "Interviews fast — or we extend support free.",
   },
   {
     icon: Check,
     title: "Expert Mentors Optimize",
     subtitle: "your entire profile",
-    description: "Industry experts rewrite your resume for top recruiters. ATS-optimized + LinkedIn makeover.",
-    highlight: "95% interview rate",
+    description: "ATS-ready resume + LinkedIn makeover by experts.",
   },
   {
     icon: Check,
     title: "700+ Referrals +",
     subtitle: "Direct Connections",
-    description: "One-click access to company referrals. Get connected directly to hiring managers.",
-    highlight: "Premium: Executive support",
+    description: "Direct access to referrals and hiring managers.",
   },
-  {
-    icon: Check,
-    title: "Guaranteed Results",
-    subtitle: "in 4 months or less",
-    description: "Our systematic approach gets you interviews fast. If not, we extend your service free.",
-    highlight: "4.2 months average to offer",
-  },
+  
 ];
 
 export default function WhatsIncluded() {
@@ -87,7 +84,7 @@ export default function WhatsIncluded() {
         </motion.div>
 
         {/* Two-Column Layout */}
-        <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto items-end">
           {/* Problems Column */}
           <div className="space-y-6">
             <div className="flex items-center gap-3 mb-8">
@@ -151,12 +148,9 @@ export default function WhatsIncluded() {
                       {solution.title}{" "}
                       <span className="gradient-text">{solution.subtitle}</span>
                     </h4>
-                    <p className="text-sm text-muted-foreground mb-2">
+                    <p className="text-sm text-muted-foreground">
                       {solution.description}
                     </p>
-                    <div className="inline-block px-3 py-1 bg-green-500/10 text-green-700 dark:text-green-400 rounded-full text-xs font-medium">
-                      ✓ {solution.highlight}
-                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -164,12 +158,23 @@ export default function WhatsIncluded() {
           </div>
         </div>
 
+        {/* Career Partner Message */}
+        {/* <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="text-center mt-16 text-xl sm:text-2xl font-semibold text-primary"
+        >
+          Think of us as your career partner until you land the job you deserve.
+        </motion.p> */}
+
         {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
           className="text-center mt-16"
         >
           <Link href="/pricing">
@@ -182,9 +187,6 @@ export default function WhatsIncluded() {
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </Link>
-          <p className="text-sm text-muted-foreground mt-3">
-            Choose from 3 plans designed to get you hired fast
-          </p>
         </motion.div>
       </div>
     </section>

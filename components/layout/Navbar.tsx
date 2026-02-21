@@ -2,11 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import ThemeToggle from "@/components/ThemeToggle";
 
 const navLinks = [
   { name: "Services", href: "/services" },
@@ -58,7 +57,6 @@ export default function Navbar() {
 
           {/* Desktop CTAs */}
           <div className="hidden lg:flex items-center gap-3">
-            <ThemeToggle />
             <Link href="/contact">
               <Button variant="ghost" size="sm">
                 Contact
@@ -99,10 +97,6 @@ export default function Navbar() {
                 </div>
 
                 <div className="flex flex-col gap-3 mt-4">
-                  <div className="flex items-center justify-between px-4 py-2">
-                    <span className="text-muted-foreground">Theme</span>
-                    <ThemeToggle />
-                  </div>
                   <Link href="/contact" onClick={() => setIsOpen(false)}>
                     <Button variant="outline" size="lg" className="w-full">
                       Contact Us

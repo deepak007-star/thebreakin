@@ -69,13 +69,13 @@ const plans = [
 const guarantees = [
   {
     icon: Shield,
-    title: "No Salary Commission",
-    description: "We don't take a cut of your salary. Pay once, get the job, and keep 100% of your earnings.",
+    title: "Results Guaranteed",
+    description: "Our systematic approach gets you interviews. If not within 4 months, we extend your service free.",
   },
   {
     icon: Sparkles,
-    title: "No Hidden Contracts",
-    description: "Transparent pricing with clear deliverables. What you see is what you get. Just execution.",
+    title: "Transparent Pricing",
+    description: "Clear deliverables with no hidden fees. What you see is what you get.",
   },
 ];
 
@@ -99,7 +99,6 @@ export default function PricingPage() {
               <span className="gradient-text">With Strategy</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
-              No salary commission. No hidden contracts. Just execution.
               Choose the plan that matches your ambition.
             </p>
           </motion.div>
