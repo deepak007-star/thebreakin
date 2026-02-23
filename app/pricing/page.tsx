@@ -137,6 +137,7 @@ export default function PricingPage() {
                         ${plan.price.toLocaleString()}
                       </span>
                       <span className="text-muted-foreground text-sm block mt-2">4-month program</span>
+                      <span className="inline-block text-xs text-amber-500 font-semibold mt-2 px-2 py-0.5 bg-amber-500/10 rounded-full border border-amber-500/30 animate-pulse">EMI Available</span>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-6">

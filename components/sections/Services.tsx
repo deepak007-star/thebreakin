@@ -181,6 +181,7 @@ export default function Services() {
                     </span>
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">4-month program</p>
+                  <span className="inline-block text-xs text-amber-500 font-semibold mt-2 px-2 py-0.5 bg-amber-500/10 rounded-full border border-amber-500/30 animate-pulse">EMI Available</span>
                 </div>
 
                 {/* CTA */}
