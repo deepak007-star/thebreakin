@@ -17,7 +17,7 @@ const plans = [
       { name: "~6,000 customized job applications (50/day for up to 4 months)", included: true },
       { name: "1 US-based industry mentor", included: true },
       { name: "Resume & LinkedIn optimization", included: true },
-      { name: "Access to 50+ referrals", included: true },
+      { name: "6,000 cold emails to recruiters", included: true },
       { name: "Structured interview preparation", included: true },
       { name: "Automated cold email + LinkedIn outreach", included: false },
       { name: "Internal job board access", included: false },
@@ -35,7 +35,7 @@ const plans = [
       { name: "~9,000 customized job applications (75/day for up to 4 months)", included: true },
       { name: "3 US-based industry mentors", included: true },
       { name: "Resume & LinkedIn optimization", included: true },
-      { name: "Access to 400+ referrals", included: true },
+      { name: "18,000 cold emails to recruiters", included: true },
       { name: "Automated cold email + LinkedIn outreach to professionals", included: true },
       { name: "Internal job board access", included: false },
       { name: "Immigration guidance", included: false },
@@ -53,7 +53,7 @@ const plans = [
       { name: "Unlimited role targeting", included: true },
       { name: "5 US-based industry mentors", included: true },
       { name: "Resume & LinkedIn optimization", included: true },
-      { name: "Access to 700+ referrals", included: true },
+      { name: "12,000 cold emails to recruiters", included: true },
       { name: "50 automated LinkedIn outreach sequences", included: true },
       { name: "Internal job board access", included: true },
       { name: "Lawyer & immigration guidance", included: true },
@@ -257,10 +257,10 @@ export default function PricingPage() {
                   <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-4 px-4">Referrals Access</td>
-                  <td className="text-center py-4 px-4">50+</td>
-                  <td className="text-center py-4 px-4 bg-primary/5">400+</td>
-                  <td className="text-center py-4 px-4">700+</td>
+                  <td className="py-4 px-4">Cold Emails to Recruiters</td>
+                  <td className="text-center py-4 px-4">6,000</td>
+                  <td className="text-center py-4 px-4 bg-primary/5">18,000</td>
+                  <td className="text-center py-4 px-4">12,000</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-4 px-4">Interview Preparation</td>

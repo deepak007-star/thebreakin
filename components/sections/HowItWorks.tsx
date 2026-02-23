@@ -27,8 +27,8 @@ const steps = [
   },
   {
     step: "04",
-    title: "Referral Network",
-    description: "Activate referrals & automated outreach",
+    title: "Cold Outreach",
+    description: "Cold emails to recruiters & automated outreach",
     icon: Users,
     color: "from-orange-500 to-amber-500",
   },

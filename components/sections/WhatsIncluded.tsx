@@ -53,9 +53,9 @@ const solutions = [
   },
   {
     icon: Check,
-    title: "700+ Referrals +",
+    title: "Cold Emails to Recruiters +",
     subtitle: "Direct Connections",
-    description: "Direct access to referrals and hiring managers.",
+    description: "Direct outreach to recruiters and hiring managers.",
   },
   
 ];
