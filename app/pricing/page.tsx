@@ -17,9 +17,9 @@ const plans = [
       { name: "~6,000 customized job applications (50/day for up to 4 months)", included: true },
       { name: "1 US-based industry mentor", included: true },
       { name: "Resume & LinkedIn optimization", included: true },
-      { name: "6,000 cold emails to recruiters", included: true },
+      { name: "6,000 cold emails to recruiters and managers", included: true },
+      { name: "1,000 LinkedIn outreach", included: true },
       { name: "Structured interview preparation", included: true },
-      { name: "Automated cold email + LinkedIn outreach", included: false },
       { name: "Internal job board access", included: false },
       { name: "Immigration guidance", included: false },
     ],
@@ -35,8 +35,8 @@ const plans = [
       { name: "~9,000 customized job applications (75/day for up to 4 months)", included: true },
       { name: "3 US-based industry mentors", included: true },
       { name: "Resume & LinkedIn optimization", included: true },
-      { name: "18,000 cold emails to recruiters", included: true },
-      { name: "Automated cold email + LinkedIn outreach to professionals", included: true },
+      { name: "12,000 cold emails to recruiters and managers", included: true },
+      { name: "3,000 LinkedIn outreach", included: true },
       { name: "Internal job board access", included: false },
       { name: "Immigration guidance", included: false },
     ],
@@ -53,8 +53,8 @@ const plans = [
       { name: "Unlimited role targeting", included: true },
       { name: "5 US-based industry mentors", included: true },
       { name: "Resume & LinkedIn optimization", included: true },
-      { name: "12,000 cold emails to recruiters", included: true },
-      { name: "50 automated LinkedIn outreach sequences", included: true },
+      { name: "18,000 cold emails to recruiters and managers", included: true },
+      { name: "5,000 LinkedIn outreach", included: true },
       { name: "Internal job board access", included: true },
       { name: "Lawyer & immigration guidance", included: true },
       { name: "O-1 & EB1-A visa strategy support", included: true },
@@ -257,28 +257,22 @@ export default function PricingPage() {
                   <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-4 px-4">Cold Emails to Recruiters</td>
+                  <td className="py-4 px-4">Cold Emails to Recruiters & Managers</td>
                   <td className="text-center py-4 px-4">6,000</td>
-                  <td className="text-center py-4 px-4 bg-primary/5">18,000</td>
-                  <td className="text-center py-4 px-4">12,000</td>
+                  <td className="text-center py-4 px-4 bg-primary/5">12,000</td>
+                  <td className="text-center py-4 px-4">18,000</td>
+                </tr>
+                <tr className="border-b">
+                  <td className="py-4 px-4">LinkedIn Outreach</td>
+                  <td className="text-center py-4 px-4">1,000</td>
+                  <td className="text-center py-4 px-4 bg-primary/5">3,000</td>
+                  <td className="text-center py-4 px-4">5,000</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-4 px-4">Interview Preparation</td>
                   <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
                   <td className="text-center py-4 px-4 bg-primary/5"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
                   <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-4 px-4">Automated Cold Email + LinkedIn Outreach</td>
-                  <td className="text-center py-4 px-4"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
-                  <td className="text-center py-4 px-4 bg-primary/5"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
-                  <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
-                </tr>
-                <tr className="border-b">
-                  <td className="py-4 px-4">LinkedIn Outreach Sequences</td>
-                  <td className="text-center py-4 px-4"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
-                  <td className="text-center py-4 px-4 bg-primary/5"><X className="w-5 h-5 text-muted-foreground/30 mx-auto" /></td>
-                  <td className="text-center py-4 px-4">50 sequences</td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-4 px-4">Internal Job Board Access</td>
