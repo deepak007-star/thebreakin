@@ -84,7 +84,7 @@ export default function CTA() {
                 transition={{ duration: 0.5, delay: 0.3 }}
                 className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10"
               >
-                <Link href="/contact">
+                <Link href="https://calendly.com/thebreakin/30min">
                   <Button
                     size="lg"
                     className="h-14 px-8 bg-white text-primary hover:bg-white/90 shadow-xl hover:shadow-2xl group"

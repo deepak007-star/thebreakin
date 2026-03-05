@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-type FormType = "contact" | "consultation";
+type FormType = "contact" | "consultation" | "lead";
 
 interface EmailData {
   type: FormType;
@@ -21,10 +21,12 @@ interface EmailData {
   subject?: string;
   message?: string;
   preferredDate?: string;
+  linkedin?: string;
+  referrer?: string;
 }
 
 function getEmailContent(data: EmailData) {
-  const { type, name, email, phone, subject, message, preferredDate } = data;
+  const { type, name, email, phone, subject, message, preferredDate, linkedin, referrer } = data;
 
   switch (type) {
     case "contact":
@@ -61,6 +63,21 @@ function getEmailContent(data: EmailData) {
           <p><strong>Preferred Date:</strong> ${formattedDate}</p>
           <hr />
           <p>Please reach out to confirm the consultation for their preferred date.</p>
+        `,
+      };
+
+    case "lead":
+      return {
+        subject: `New Lead from ${referrer || "direct"}: ${name || "Unknown"}`,
+        html: `
+          <h2>New Influencer Referral Lead</h2>
+          <p><strong>Referrer:</strong> ${referrer || "direct"}</p>
+          <hr />
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>LinkedIn:</strong> <a href="${linkedin}">${linkedin}</a></p>
+          <hr />
+          <p><em>This lead was captured through the influencer referral system.</em></p>
         `,
       };
 

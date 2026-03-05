@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Mail, Send, Calendar, MessageSquare, CheckCircle2, Loader2, Clock } from "lucide-react";
+import { Mail, Calendar, MessageSquare, CheckCircle2, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import FAQ from "@/components/sections/FAQ";
 
 const contactEmail = "services@thebreakin.org";
+const calendlyBaseUrl = "https://calendly.com/thebreakin/30min";
 
 const reasons = [
   "Free career assessment",
@@ -18,7 +20,10 @@ const reasons = [
   "Resume feedback",
 ];
 
-export default function ContactPage() {
+function ContactContent() {
+  const searchParams = useSearchParams();
+  const justBooked = searchParams.get('booked') === 'true';
+
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -26,77 +31,48 @@ export default function ContactPage() {
     subject: "",
     message: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isScheduling, setIsScheduling] = useState(false);
-  const [isScheduled, setIsScheduled] = useState(false);
-  const [consultationEmail, setConsultationEmail] = useState("");
-  const [consultationDate, setConsultationDate] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch("/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          type: "contact",
-          ...formState,
-        }),
-      });
-
-      if (!response.ok) throw new Error("Failed to send");
-
-      setIsSubmitted(true);
-      setFormState({ name: "", email: "", phone: "", subject: "", message: "" });
-    } catch (error) {
-      console.error("Error sending message:", error);
-      alert("Failed to send message. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleScheduleConsultation = async (e: React.FormEvent) => {
+  const handleBookConsultation = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!consultationEmail || !consultationDate) return;
 
-    setIsScheduling(true);
-
-    try {
-      const response = await fetch("/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          type: "consultation",
-          email: consultationEmail,
-          preferredDate: consultationDate,
-        }),
-      });
-
-      if (!response.ok) throw new Error("Failed to send");
-
-      setIsScheduled(true);
-      setConsultationEmail("");
-      setConsultationDate("");
-    } catch (error) {
-      console.error("Error scheduling consultation:", error);
-      alert("Failed to schedule. Please try again.");
-    } finally {
-      setIsScheduling(false);
+    // Build Calendly URL with pre-filled data
+    const calendlyUrl = new URL(calendlyBaseUrl);
+    if (formState.name) {
+      calendlyUrl.searchParams.set("name", formState.name);
     }
+    if (formState.email) {
+      calendlyUrl.searchParams.set("email", formState.email);
+    }
+
+    window.location.href = calendlyUrl.toString();
   };
 
   return (
     <div className="pt-20">
+      {/* Booking Success Banner */}
+      {justBooked && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-green-500/10 border-b border-green-500/20"
+        >
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="flex items-center justify-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-green-500" />
+              <p className="text-green-700 font-medium">
+                Thanks for booking! We&apos;ll see you soon.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
       {/* Compact Hero Section */}
-      <section className="py-10 lg:py-14 bg-muted/30">
+      <section className="py-8 lg:py-10 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -108,243 +84,120 @@ export default function ContactPage() {
               Get in <span className="gradient-text">Touch</span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Book a free consultation or send us a message. We respond within 24 hours.
+              Book a free consultation with our career experts. We respond within 24 hours.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Main Contact Section - Side by Side Cards */}
-      <section className="py-12">
+      {/* Main Contact Section - Single Centered Card */}
+      <section className="py-6 lg:py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {/* Book Consultation Card - Left */}
+          <div className="max-w-2xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <Card className="gradient-bg text-white h-full">
-                <CardContent className="p-8 flex flex-col h-full">
-                  {isScheduled ? (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-8 flex-1 flex flex-col justify-center"
-                    >
-                      <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-4">
-                        <CheckCircle2 className="w-8 h-8" />
-                      </div>
-                      <h3 className="text-2xl font-bold mb-2">Consultation Scheduled!</h3>
-                      <p className="text-white/80 mb-4">
-                        Our team will contact you within 24 hours to confirm your consultation time.
-                      </p>
-                      <p className="text-white/60 text-sm">
-                        You&apos;ll receive confirmation at your email address.
-                      </p>
-                    </motion.div>
-                  ) : (
-                    <>
-                      <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center mb-6">
-                        <Calendar className="w-7 h-7" />
-                      </div>
-                      <h2 className="text-2xl font-bold mb-4">Book a Free Consultation</h2>
-                      <p className="text-white/80 mb-6 flex-1">
-                        Schedule a 30-minute call with our career experts. We&apos;ll assess your profile
-                        and create a personalized action plan to help you land your dream job.
-                      </p>
-                      <ul className="space-y-3 mb-6">
-                        <li className="flex items-center gap-3 text-white/90">
-                          <CheckCircle2 className="w-5 h-5 text-white/70" />
-                          <span>Profile assessment</span>
-                        </li>
-                        <li className="flex items-center gap-3 text-white/90">
-                          <CheckCircle2 className="w-5 h-5 text-white/70" />
-                          <span>Personalized action plan</span>
-                        </li>
-                        <li className="flex items-center gap-3 text-white/90">
-                          <CheckCircle2 className="w-5 h-5 text-white/70" />
-                          <span>Visa pathway guidance</span>
-                        </li>
-                      </ul>
-                      <form onSubmit={handleScheduleConsultation} className="space-y-4">
+              <Card className="gradient-bg text-white">
+                <CardContent className="p-8">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center">
+                      <Calendar className="w-7 h-7" />
+                    </div>
+                    <h2 className="text-2xl font-bold">Book a Consultation</h2>
+                  </div>
+
+                  <p className="text-white/80 mb-6">
+                    Schedule a 30-minute call with our career experts. We&apos;ll assess your profile
+                    and create a personalized action plan to help you land your dream job.
+                  </p>
+
+                  <form onSubmit={handleBookConsultation} className="space-y-4">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-white/80 mb-1.5">
+                          Full Name *
+                        </label>
                         <Input
-                          type="email"
-                          placeholder="Enter your email"
-                          value={consultationEmail}
-                          onChange={(e) => setConsultationEmail(e.target.value)}
+                          id="name"
+                          name="name"
+                          value={formState.name}
+                          onChange={handleChange}
+                          placeholder="John Doe"
                           required
                           className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                         />
-                        <div>
-                          <label className="block text-sm text-white/80 mb-1.5">
-                            Preferred Date *
-                          </label>
-                          <Input
-                            type="date"
-                            value={consultationDate}
-                            onChange={(e) => setConsultationDate(e.target.value)}
-                            required
-                            min={new Date().toISOString().split('T')[0]}
-                            className="bg-white/10 border-white/20 text-white placeholder:text-white/50 [&::-webkit-calendar-picker-indicator]:invert"
-                          />
-                        </div>
-                        <Button
-                          type="submit"
-                          size="lg"
-                          className="w-full bg-white text-primary hover:bg-white/90"
-                          disabled={isScheduling}
-                        >
-                          {isScheduling ? (
-                            <>
-                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              Scheduling...
-                            </>
-                          ) : (
-                            <>
-                              Schedule Now
-                              <Calendar className="ml-2 w-4 h-4" />
-                            </>
-                          )}
-                        </Button>
-                      </form>
-                    </>
-                  )}
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Send Message Card - Right */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <Card className="h-full">
-                <CardContent className="p-8">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <Send className="w-7 h-7 text-primary" />
-                    </div>
-                    <h2 className="text-2xl font-bold">Send Us a Message</h2>
-                  </div>
-
-                  {isSubmitted ? (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-8"
-                    >
-                      <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-                        <CheckCircle2 className="w-8 h-8 text-green-600" />
-                      </div>
-                      <h3 className="text-xl font-semibold text-green-800 mb-2">Message Sent!</h3>
-                      <p className="text-muted-foreground mb-4">
-                        Thank you for reaching out. We&apos;ll get back to you within 24 hours.
-                      </p>
-                      <Button
-                        variant="outline"
-                        onClick={() => setIsSubmitted(false)}
-                      >
-                        Send Another Message
-                      </Button>
-                    </motion.div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <label htmlFor="name" className="block text-sm font-medium mb-1.5">
-                            Full Name *
-                          </label>
-                          <Input
-                            id="name"
-                            name="name"
-                            value={formState.name}
-                            onChange={handleChange}
-                            placeholder="John Doe"
-                            required
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="email" className="block text-sm font-medium mb-1.5">
-                            Email *
-                          </label>
-                          <Input
-                            id="email"
-                            name="email"
-                            type="email"
-                            value={formState.email}
-                            onChange={handleChange}
-                            placeholder="you@example.com"
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <label htmlFor="phone" className="block text-sm font-medium mb-1.5">
-                            Phone
-                          </label>
-                          <Input
-                            id="phone"
-                            name="phone"
-                            type="tel"
-                            value={formState.phone}
-                            onChange={handleChange}
-                            placeholder="+1 (555) 123-4567"
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="subject" className="block text-sm font-medium mb-1.5">
-                            Subject *
-                          </label>
-                          <Input
-                            id="subject"
-                            name="subject"
-                            value={formState.subject}
-                            onChange={handleChange}
-                            placeholder="How can we help?"
-                            required
-                          />
-                        </div>
                       </div>
                       <div>
-                        <label htmlFor="message" className="block text-sm font-medium mb-1.5">
-                          Message *
+                        <label htmlFor="email" className="block text-sm font-medium text-white/80 mb-1.5">
+                          Email *
                         </label>
-                        <Textarea
-                          id="message"
-                          name="message"
-                          value={formState.message}
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          value={formState.email}
                           onChange={handleChange}
-                          placeholder="Tell us about your background and goals..."
-                          rows={4}
+                          placeholder="you@example.com"
                           required
+                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                         />
                       </div>
-                      <Button
-                        type="submit"
-                        variant="gradient"
-                        size="lg"
-                        className="w-full"
-                        disabled={isSubmitting}
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Sending...
-                          </>
-                        ) : (
-                          <>
-                            Send Message
-                            <Send className="ml-2 w-4 h-4" />
-                          </>
-                        )}
-                      </Button>
-                    </form>
-                  )}
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="phone" className="block text-sm font-medium text-white/80 mb-1.5">
+                          Phone <span className="text-white/50">(optional)</span>
+                        </label>
+                        <Input
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          value={formState.phone}
+                          onChange={handleChange}
+                          placeholder="+1 (555) 123-4567"
+                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="subject" className="block text-sm font-medium text-white/80 mb-1.5">
+                          Subject <span className="text-white/50">(optional)</span>
+                        </label>
+                        <Input
+                          id="subject"
+                          name="subject"
+                          value={formState.subject}
+                          onChange={handleChange}
+                          placeholder="How can we help?"
+                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-white/80 mb-1.5">
+                        Message <span className="text-white/50">(optional)</span>
+                      </label>
+                      <Textarea
+                        id="message"
+                        name="message"
+                        value={formState.message}
+                        onChange={handleChange}
+                        placeholder="Tell us about your background and goals..."
+                        rows={4}
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                      />
+                    </div>
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="w-full bg-white text-primary hover:bg-white/90"
+                    >
+                      <Calendar className="w-4 h-4 mr-2" />
+                      Book a Consultation
+                    </Button>
+                  </form>
                 </CardContent>
               </Card>
             </motion.div>
@@ -411,5 +264,13 @@ export default function ContactPage() {
         <FAQ />
       </div>
     </div>
+  );
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={<div className="pt-20 min-h-screen" />}>
+      <ContactContent />
+    </Suspense>
   );
 }
