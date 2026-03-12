@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Loader2, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { FileUpload } from "@/components/ui/file-upload";
 
 interface LeadFormProps {
   referrer: string;
@@ -17,7 +18,9 @@ export default function LeadForm({ referrer, variant = "hero", className }: Lead
     name: "",
     email: "",
     linkedin: "",
+    phone: "",
   });
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,20 +34,26 @@ export default function LeadForm({ referrer, variant = "hero", className }: Lead
     setError(null);
 
     try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("type", "lead");
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("linkedin", formData.linkedin);
+      formDataToSend.append("phone", formData.phone);
+      formDataToSend.append("referrer", referrer);
+
+      if (resumeFile) {
+        formDataToSend.append("resume", resumeFile);
+      }
+
       const response = await fetch("/api/send-email", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          type: "lead",
-          name: formData.name,
-          email: formData.email,
-          linkedin: formData.linkedin,
-          referrer,
-        }),
+        body: formDataToSend,
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit form");
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to submit form");
       }
 
       // Redirect to Calendly on success
@@ -53,8 +62,8 @@ export default function LeadForm({ referrer, variant = "hero", className }: Lead
       calendlyUrl.searchParams.set("email", formData.email);
       calendlyUrl.searchParams.set("a1", referrer);
       window.location.href = calendlyUrl.toString();
-    } catch {
-      setError("Something went wrong. Please try again.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
       setIsSubmitting(false);
     }
   };
@@ -107,6 +116,28 @@ export default function LeadForm({ referrer, variant = "hero", className }: Lead
             required
             className="h-12 bg-background/80 border-border/50 focus:border-primary"
           />
+        </div>
+
+        <div>
+          <Input
+            type="tel"
+            name="phone"
+            placeholder="Phone Number (optional)"
+            value={formData.phone}
+            onChange={handleChange}
+            className="h-12 bg-background/80 border-border/50 focus:border-primary"
+          />
+        </div>
+
+        <div>
+          <FileUpload
+            onFileChange={setResumeFile}
+            accept=".pdf,.doc,.docx"
+            labelClassName="bg-background/80 border-border/50 hover:border-primary"
+          />
+          <p className="text-xs text-muted-foreground mt-1">
+            Optional: PDF, DOC, or DOCX (max 5MB)
+          </p>
         </div>
 
         {error && (

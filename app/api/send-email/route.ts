@@ -13,20 +13,29 @@ const transporter = nodemailer.createTransport({
 
 type FormType = "contact" | "consultation" | "lead";
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ALLOWED_FILE_TYPES = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
+
 interface EmailData {
   type: FormType;
-  name?: string;
+  name?: string | null;
   email: string;
-  phone?: string;
-  subject?: string;
-  message?: string;
-  preferredDate?: string;
-  linkedin?: string;
-  referrer?: string;
+  phone?: string | null;
+  subject?: string | null;
+  message?: string | null;
+  preferredDate?: string | null;
+  linkedin?: string | null;
+  referrer?: string | null;
+  hasResume?: boolean;
+  resumeFilename?: string | null;
 }
 
 function getEmailContent(data: EmailData) {
-  const { type, name, email, phone, subject, message, preferredDate, linkedin, referrer } = data;
+  const { type, name, email, phone, subject, message, preferredDate, linkedin, referrer, hasResume, resumeFilename } = data;
 
   switch (type) {
     case "contact":
@@ -34,13 +43,14 @@ function getEmailContent(data: EmailData) {
         subject: `New Contact: ${subject || "Website Inquiry"}`,
         html: `
           <h2>New Contact Form Submission</h2>
-          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Name:</strong> ${name || "Not provided"}</p>
           <p><strong>Email:</strong> ${email}</p>
           <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
-          <p><strong>Subject:</strong> ${subject}</p>
+          <p><strong>Subject:</strong> ${subject || "Not provided"}</p>
+          ${hasResume ? `<p><strong>Resume:</strong> Attached (${resumeFilename})</p>` : ""}
           <hr />
           <p><strong>Message:</strong></p>
-          <p>${message}</p>
+          <p>${message || "No message provided"}</p>
         `,
       };
 
@@ -75,7 +85,9 @@ function getEmailContent(data: EmailData) {
           <hr />
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
           <p><strong>LinkedIn:</strong> <a href="${linkedin}">${linkedin}</a></p>
+          ${hasResume ? `<p><strong>Resume:</strong> Attached (${resumeFilename})</p>` : `<p><strong>Resume:</strong> Not provided</p>`}
           <hr />
           <p><em>This lead was captured through the influencer referral system.</em></p>
         `,
@@ -91,23 +103,78 @@ function getEmailContent(data: EmailData) {
 
 export async function POST(request: NextRequest) {
   try {
-    const data: EmailData = await request.json();
+    const formData = await request.formData();
 
-    if (!data.email || !data.type) {
+    const type = formData.get("type") as FormType;
+    const email = formData.get("email") as string;
+    const name = formData.get("name") as string | null;
+    const phone = formData.get("phone") as string | null;
+    const subject = formData.get("subject") as string | null;
+    const message = formData.get("message") as string | null;
+    const preferredDate = formData.get("preferredDate") as string | null;
+    const linkedin = formData.get("linkedin") as string | null;
+    const referrer = formData.get("referrer") as string | null;
+    const resumeFile = formData.get("resume") as File | null;
+
+    if (!email || !type) {
       return NextResponse.json(
         { error: "Email and type are required" },
         { status: 400 }
       );
     }
 
-    const { subject, html } = getEmailContent(data);
+    // Validate file if present
+    if (resumeFile && resumeFile.size > 0) {
+      if (resumeFile.size > MAX_FILE_SIZE) {
+        return NextResponse.json(
+          { error: "File too large. Maximum size is 5MB." },
+          { status: 400 }
+        );
+      }
+
+      if (!ALLOWED_FILE_TYPES.includes(resumeFile.type)) {
+        return NextResponse.json(
+          { error: "Invalid file type. Only PDF, DOC, and DOCX are allowed." },
+          { status: 400 }
+        );
+      }
+    }
+
+    // Prepare email data
+    const data: EmailData = {
+      type,
+      email,
+      name,
+      phone,
+      subject,
+      message,
+      preferredDate,
+      linkedin,
+      referrer,
+      hasResume: !!(resumeFile && resumeFile.size > 0),
+      resumeFilename: resumeFile?.name || null,
+    };
+
+    const { subject: emailSubject, html } = getEmailContent(data);
+
+    // Prepare attachments
+    const attachments: nodemailer.SendMailOptions["attachments"] = [];
+    if (resumeFile && resumeFile.size > 0) {
+      const buffer = Buffer.from(await resumeFile.arrayBuffer());
+      attachments.push({
+        filename: resumeFile.name,
+        content: buffer,
+        contentType: resumeFile.type,
+      });
+    }
 
     await transporter.sendMail({
       from: process.env.SMTP_USER,
       to: process.env.EMAIL_TO,
-      replyTo: data.email,
-      subject,
+      replyTo: email,
+      subject: emailSubject,
       html,
+      attachments,
     });
 
     return NextResponse.json({ success: true });

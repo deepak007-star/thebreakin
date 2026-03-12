@@ -3,11 +3,12 @@
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Mail, Calendar, MessageSquare, CheckCircle2, Clock } from "lucide-react";
+import { Mail, Calendar, MessageSquare, CheckCircle2, Clock, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
+import { FileUpload } from "@/components/ui/file-upload";
 import FAQ from "@/components/sections/FAQ";
 
 const contactEmail = "services@thebreakin.org";
@@ -31,24 +32,57 @@ function ContactContent() {
     subject: "",
     message: "",
   });
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleBookConsultation = (e: React.FormEvent) => {
+  const handleBookConsultation = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Build Calendly URL with pre-filled data
-    const calendlyUrl = new URL(calendlyBaseUrl);
-    if (formState.name) {
-      calendlyUrl.searchParams.set("name", formState.name);
-    }
-    if (formState.email) {
-      calendlyUrl.searchParams.set("email", formState.email);
-    }
+    try {
+      // Step 1: Send email
+      const formDataToSend = new FormData();
+      formDataToSend.append("type", "contact");
+      formDataToSend.append("name", formState.name);
+      formDataToSend.append("email", formState.email);
+      formDataToSend.append("phone", formState.phone);
+      formDataToSend.append("subject", formState.subject);
+      formDataToSend.append("message", formState.message);
 
-    window.location.href = calendlyUrl.toString();
+      if (resumeFile) {
+        formDataToSend.append("resume", resumeFile);
+      }
+
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to send message");
+      }
+
+      // Step 2: Redirect to Calendly
+      const calendlyUrl = new URL(calendlyBaseUrl);
+      if (formState.name) {
+        calendlyUrl.searchParams.set("name", formState.name);
+      }
+      if (formState.email) {
+        calendlyUrl.searchParams.set("email", formState.email);
+      }
+
+      window.location.href = calendlyUrl.toString();
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -189,13 +223,39 @@ function ContactContent() {
                         className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                       />
                     </div>
+                    <div>
+                      <label className="block text-sm font-medium text-white/80 mb-1.5">
+                        Resume <span className="text-white/50">(optional)</span>
+                      </label>
+                      <FileUpload
+                        onFileChange={setResumeFile}
+                        accept=".pdf,.doc,.docx"
+                        labelClassName="bg-white/10 border-white/20 text-white hover:border-white/40 hover:bg-white/20"
+                      />
+                      <p className="text-xs text-white/50 mt-1">
+                        PDF, DOC, or DOCX (max 5MB)
+                      </p>
+                    </div>
+                    {submitError && (
+                      <p className="text-sm text-red-300 text-center">{submitError}</p>
+                    )}
                     <Button
                       type="submit"
                       size="lg"
                       className="w-full bg-white text-primary hover:bg-white/90"
+                      disabled={isSubmitting}
                     >
-                      <Calendar className="w-4 h-4 mr-2" />
-                      Book a Consultation
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Calendar className="w-4 h-4 mr-2" />
+                          Book a Consultation
+                        </>
+                      )}
                     </Button>
                   </form>
                 </CardContent>
